@@ -1,0 +1,31 @@
+remote {{ openvpn_conf_remote }}
+port {{ openvpn_conf_port }}
+proto {{ openvpn_conf_proto }}
+dev {{ openvpn_conf_dev }}
+cipher {{ openvpn_conf_cipher }}
+{% if openvpn_conf_comp_lzo is defined %}
+comp-lzo
+{% endif %}
+
+{% if openvpn_conf_client is defined %}
+client
+{% endif %}
+
+{% if openvpn_conf_ping_restart is defined %}
+ping-restart {{ openvpn_conf_ping_restart }}
+{% endif %}
+
+{% if openvpn_conf_tls_client is defined %}
+tls-client
+{% endif %}
+
+ca {{ openvpn_conf_ca_crt }}
+cert  {{ openvpn_conf_cert }}
+key {{ openvpn_conf_key }}
+{% if openvpn_conf_dh is defined %}
+dh {{ openvpn_conf_dh }}
+{% endif %}
+tls-auth {{ openvpn_conf_tls_auth }}
+{% if openvpn_conf_ns_cert_type is defined %}
+ns-cert-type server
+{% endif %}

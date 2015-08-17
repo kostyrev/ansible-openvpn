@@ -1,0 +1,33 @@
+---
+# defaults file for kostyrevaa.openvpn
+openvpn_root_dir: /etc/openvpn
+openvpn_root_dir_perms: "0755"
+openvpn_template_src: vpn.conf.j2
+openvpn_conf_file_path: "{{ openvpn_root_dir }}/vpn.conf"
+openvpn_conf_file_owner: "root"
+openvpn_conf_file_group: "root"
+openvpn_conf_file_perms: "0400"
+
+openvpn_keys_src_tar: "/opt/vpn-keys/{{ inventory_hostname }}/keys.tar.gz"
+openvpn_keys_dest_tar: "{{ openvpn_root_dir }}/keys.tar.gz"
+openvpn_keys_dest_tar_owner: root
+openvpn_keys_dest_tar_group: root
+openvpn_keys_dest_tar_perms: "0400"
+
+openvpn_conf_remote: 'example.org'
+openvpn_conf_port: 1194
+openvpn_conf_proto: udp
+openvpn_conf_dev: tun
+openvpn_conf_cipher: 'AES-256-CBC'
+openvpn_conf_comp_lzo: yes
+openvpn_conf_client: yes
+openvpn_conf_ping_restart: 60
+openvpn_conf_tls_client: yes
+openvpn_conf_keys_path: "{{ openvpn_root_dir }}/keys"
+openvpn_conf_ca_crt: "{{ openvpn_conf_keys_path }}/ca.crt"
+openvpn_conf_cert_name: "client"
+openvpn_conf_cert: "{{ openvpn_conf_keys_path }}/{{ openvpn_conf_cert_name }}.crt"
+openvpn_conf_key: "{{ openvpn_conf_keys_path }}/{{ openvpn_conf_cert_name }}.key"
+openvpn_conf_tls_auth: "{{ openvpn_conf_keys_path }}/ta.key 1"
+openvpn_conf_ns_cert_type: server
+

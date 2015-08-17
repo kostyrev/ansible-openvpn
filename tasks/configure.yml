@@ -1,0 +1,23 @@
+---
+
+- name: create root directory vpn
+  file: path={{ openvpn_root_dir }} state=directory mode={{ openvpn_root_dir_perms }}
+  tags:
+    - vpn
+    - vpn-configure
+
+- name: render config for vpn
+  template: src={{ openvpn_template_src }} dest={{ openvpn_conf_file_path }} owner={{ openvpn_conf_file_owner }} group={{ openvpn_conf_file_group }} mode={{ openvpn_conf_file_perms }}
+  tags:
+    - vpn
+    - vpn-configure
+
+- name: copy tarball with keys for vpn
+  copy: src={{ openvpn_keys_src_tar }} dest={{ openvpn_keys_dest_tar }} group={{ openvpn_keys_dest_tar_group }} owner={{ openvpn_keys_dest_tar_owner }} mode={{ openvpn_keys_dest_tar_perms }}
+  tags:
+    - vpn
+
+- name: Extract tarball with keys for vpn
+  command: chdir={{ openvpn_root_dir }} /bin/tar xvf keys.tar.gz creates={{ openvpn_root_dir }}/keys
+  tags:
+    - vpn
